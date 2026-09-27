@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stránka nenalezena (404) | Otvírání Ořechova</title>
+
+
+<style>
+:root{
+--green-apple:#17aa01;
+--blueberry-purple:#6b2e8f;
+--sky-blue:#8fd3ff;
+--link-blue:#5abcf0;
+--white:#ffffff;
+--light-gray: #f9f9f9;
+--border-gray: #e0e0e0;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+html, body { overflow-x: hidden; width: 100%; }
+
+body{ background:var(--light-gray); color:#333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+header{ background:var(--white); padding: 20px; border-top: 8px solid var(--green-apple); border-bottom: 2px solid var(--blueberry-purple); text-align: center; }
+header h1{ color: var(--blueberry-purple); font-size: 36px; text-transform: uppercase; letter-spacing: 2px; font-family: 'Times New Roman', Times, serif; }
+
+.error-container{ max-width: 700px; margin: 60px auto; background: white; padding: 50px 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 4px; border-top: 6px solid var(--blueberry-purple); flex-grow: 1; width: 100%; box-sizing: border-box; }
+.error-code { font-size: 80px; color: var(--green-apple); font-weight: bold; font-family: 'Times New Roman', Times, serif; line-height: 1; margin-bottom: 10px; }
+.error-container h2 { color: var(--blueberry-purple); font-size: 26px; margin-bottom: 20px; font-family: 'Times New Roman', Times, serif; }
+.error-container p { font-size: 16px; color: #555; margin-bottom: 30px; }
+.btn-home { display: inline-block; background: var(--green-apple); color: white; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s ease; }
+.btn-home:hover { background: var(--blueberry-purple); }
+
+footer{ background:var(--sky-blue); color: #333; text-align:center; padding:20px; font-size:14px; font-weight: bold; border-top: 4px solid var(--green-apple); }
+
+@media (max-width: 768px) {
+    header h1 { font-size: 26px; }
+    .error-container { margin: 20px 10px; padding: 30px 15px; width: calc(100% - 20px); }
+    .error-code { font-size: 60px; }
+    .error-container h2 { font-size: 20px; }
+    .btn-home { display: block; width: 100%; box-sizing: border-box; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Otvírání Ořechova</h1>
+</header>
+
+<main class="error-container">
+    <div class="error-code">404</div>
+    <h2>Stránka nebyla nalezena</h2>
+    <p>Omlouváme se, ale stránka, kterou hledáte, neexistuje, byla přesunuta nebo byla zrušena. Zkontrolujte prosím adresu, nebo se vraťte na hlavní stránku novin.</p>
+    <a href="index.html" class="btn-home">Zpět na hlavní stránku</a>
+</main>
+
+<footer>
+    © 2026 Otvírání Ořechova | Vydáváno v zájmu vnoučat i veřejnosti.
+</footer>
+
+</body>
+</html>

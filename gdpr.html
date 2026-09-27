@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zásady ochrany osobních údajů (GDPR) | Otvírání</title>
+
+ 
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%236b2e8f' stroke-width='18' /%3E%3Cpath d='M 50 15 A 35 35 0 0 0 50 85' fill='none' stroke='%2317aa01' stroke-width='18' /%3E%3C/svg%3E">
+
+<style>
+:root {
+    --green-apple: #17aa01;
+    --blueberry-purple: #6b2e8f;
+    --sky-blue: #8fd3ff;
+    --link-blue: #5abcf0;
+    --white: #ffffff;
+    --light-gray: #f1f5f9;
+    --border-gray: #e2e8f0;
+    --text-main: #334155;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--light-gray);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+.layout-wrapper {
+    max-width: 1240px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+
+aside.sidebar {
+    width: 320px;
+    background: white;
+    padding: 30px 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--blueberry-purple);
+    position: sticky;
+    top: 30px;
+    flex-shrink: 0;
+}
+
+aside.sidebar h3 {
+    font-size: 17px;
+    color: var(--blueberry-purple);
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid var(--green-apple);
+    padding-bottom: 12px;
+    font-weight: 700;
+}
+
+aside.sidebar ul {
+    list-style: none;
+}
+
+aside.sidebar li {
+    margin-bottom: 6px;
+}
+
+aside.sidebar a {
+    text-decoration: none;
+    color: #475569;
+    font-size: 14px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    font-weight: 600;
+}
+
+aside.sidebar a:hover {
+    background: #f8fafc;
+    color: var(--green-apple);
+    padding-left: 20px;
+}
+
+
+main.content {
+    flex: 1;
+    background: white;
+    padding: 55px;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--green-apple);
+    min-width: 0;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 35px;
+    color: #475569;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: all 0.2s ease;
+}
+.back-btn:hover { 
+    color: var(--blueberry-purple); 
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateX(-4px); 
+}
+
+h1 {
+    color: var(--blueberry-purple);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 34px;
+    border-bottom: 2px solid var(--border-gray);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+h2 {
+    color: var(--blueberry-purple);
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 21px;
+    font-family: 'Times New Roman', Times, serif;
+    background: #f8fafc;
+    padding: 14px 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--green-apple);
+    scroll-margin-top: 30px; 
+}
+
+h3 { 
+    color: #1e293b; 
+    margin-top: 25px; 
+    margin-bottom: 12px; 
+    font-size: 17px; 
+    font-weight: 700; 
+}
+
+p { 
+    margin-bottom: 18px; 
+    font-size: 15px; 
+    color: #475569; 
+}
+
+ul { 
+    margin-left: 20px; 
+    margin-bottom: 20px; 
+    font-size: 15px; 
+    color: #475569; 
+}
+
+li { 
+    margin-bottom: 8px; 
+    padding-left: 6px;
+}
+
+.info-box {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid var(--border-gray);
+    border-left: 5px solid var(--blueberry-purple);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+.info-box ul { 
+    margin-bottom: 0; 
+    list-style-type: none;
+    margin-left: 0;
+}
+.info-box li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #cbd5e1;
+}
+.info-box li:last-child {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 13.5px;
+    color: #475569;
+    background: var(--sky-blue);
+    border-top: 4px solid var(--green-apple);
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+    .layout-wrapper { 
+        flex-direction: column; 
+        margin: 20px auto; 
+        padding: 0 15px; 
+        gap: 25px; 
+    }
+    aside.sidebar { 
+        width: 100%; 
+        position: static; 
+        padding: 25px 20px; 
+    }
+    aside.sidebar ul { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 8px; 
+    }
+    aside.sidebar li { 
+        margin-bottom: 0; 
+    }
+    aside.sidebar a { 
+        font-size: 14px; 
+        padding: 12px 15px; 
+        background: #ffffff; 
+        border: 1px solid var(--border-gray); 
+        display: block;
+        width: 100%;
+        border-radius: 8px;
+    }
+    main.content { 
+        padding: 30px 20px; 
+    }
+    h1 { 
+        font-size: 26px; 
+    }
+    h2 { 
+        font-size: 18px; 
+        padding: 12px 15px; 
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="layout-wrapper">
+    <aside class="sidebar">
+        <h3>Obsah stránky</h3>
+        <ul>
+            <li><a href="#bod1">1. Úvod a vymezení</a></li>
+            <li><a href="#bod2">2. Správce údajů</a></li>
+            <li><a href="#bod3">3. Zpracovávaná data</a></li>
+            <li><a href="#bod4">4. Účely a právní základy</a></li>
+            <li><a href="#bod5">5. Zpracovatelé dat</a></li>
+            <li><a href="#bod6">6. Doba uchování</a></li>
+            <li><a href="#bod7">7. Vaše práva</a></li>
+            <li><a href="#bod8">8. Cookies</a></li>
+            <li><a href="#bod9">9. Zabezpečení</a></li>
+            <li><a href="#bod10">10. Závěr</a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <a href="index.html" class="back-btn">← Zpět na hlavní stránku novin</a>
+        
+        <h1>Zásady ochrany osobních údajů (GDPR)</h1>
+        
+        <p>Vážíme si vaší důvěry a ochrana vašeho soukromí je pro nás naprostou prioritou. Tyto zásady ochrany osobních údajů podrobně vysvětlují, jakým způsobem shromažďujeme, zpracováváme, využíváme a chráníme vaše osobní údaje v rámci provozu nezávislých online novin <strong>Otvírání</strong>.</p>
+        <p>Dokument je plně v souladu s Nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., o zpracování osobních údajů.</p>
+
+        <h2 id="bod1">1. Úvodní ustanovení a základní pojmy</h2>
+        <p>Pro účely těchto zásad se rozumí:</p>
+        <ul>
+            <li><strong>Osobním údajem</strong> jakákoliv informace o identifikované nebo identifikovatelné fyzické osobě.</li>
+            <li><strong>Zpracováním</strong> jakákoliv operace s osobními údaji (shromáždění, uložení, uspořádání apod.).</li>
+            <li><strong>Správcem</strong> subjekt, který určuje účely a prostředky zpracování osobních údajů.</li>
+        </ul>
+
+        <h2 id="bod2">2. Identifikace správce osobních údajů</h2>
+        <p>Správcem a osobou zodpovědnou za nakládání s osobními údaji na tomto webu je:</p>
+        <div class="info-box">
+            <ul>
+                <li><strong>Jméno a příjmení:</strong> Ing. Jaromír Ticháček, CSc.</li>
+                <li><strong>Projekt:</strong> Otvírání (nezávislý občasník)</li>
+                <li><strong>E-mail pro kontakt:</strong> tichacekjar@gmail.com</li>
+                <li><strong>Telefonní spojení:</strong> +420 604 753 863</li>
+                <li><strong>Místo působení:</strong> Ořechov u Brna, Česká republika</li>
+            </ul>
+        </div>
+
+        <h2 id="bod3">3. Jaké kategorie osobních údajů shromažďujeme?</h2>
+        <p>Klademe důraz na minimalizaci dat. Shromažďujeme pouze údaje nezbytné pro fungování webu a komunikaci:</p>
+        <ul>
+            <li><strong>Údaje z kontaktního formuláře:</strong> Jméno, e-mailová adresa a text zprávy.</li>
+            <li><strong>Technická data:</strong> IP adresa, typ prohlížeče a provozní logy generované servery pro zajištění bezpečnosti.</li>
+        </ul>
+
+        <h2 id="bod4">4. Účely a právní základy zpracování</h2>
+        <p>Každé zpracování je podloženo zákonnými důvody dle GDPR:</p>
+        <h3>A. Vyřizování dotazů a podnětů</h3>
+        <p>Na základě oprávněného zájmu (čl. 6 odst. 1 písm. f) GDPR) odpovídáme na vaše dotazy zaslané přes formulář.</p>
+        <h3>B. Technický provoz webu</h3>
+        <p>Zajištění stabilního chodu a ochrany stránek.</p>
+
+        <h2 id="bod5">5. Příjemci osobních údajů (Zpracovatelé)</h2>
+        <p>Vaše údaje nejsou prodávány ani předávány k marketingovým účelům. Využíváme pouze prověřené zpracovatele:</p>
+        <ul>
+            <li><strong>EmailJS (EmailJS.com):</strong> Zprostředkování odeslání zprávy z kontaktního formuláře.</li>
+            <li><strong>Google Ireland Limited:</strong> Cloudové úložiště pro archivaci korespondence a dokumentů.</li>
+            <li><strong>Poskytovatel hostingu:</strong> Technický serverový provoz webu.</li>
+        </ul>
+
+        <h2 id="bod6">6. Doba uchování osobních údajů</h2>
+        <p>Údaje z e-mailové komunikace uchováváme po dobu nezbytnou k vyřízení dotazu, nejdéle však <strong>1 rok</strong> od ukončení konverzace.</p>
+
+        <h2 id="bod7">7. Práva subjektů údajů (Vaše práva)</h2>
+        <p>Máte právo na přístup, opravu, výmaz či omezení zpracování. Svá práva můžete uplatnit na e-mailu <strong>tichacekjar@gmail.com</strong>. Stížnost lze podat u Úřadu pro ochranu osobních údajů (www.uoou.cz).</p>
+
+        <h2 id="bod8">8. Používání souborů Cookies</h2>
+        <p>Web využívá cookies k zajištění technického chodu a zapamatování vašich preferencí souhlasu.</p>
+
+        <h2 id="bod9">9. Zabezpečení údajů</h2>
+        <p>Veškerá komunikace je šifrována protokolem HTTPS a přístupy do administrace jsou chráněny silnými hesly.</p>
+
+        <h2 id="bod10">10. Závěrečná ustanovení</h2>
+        <p>Odesláním formuláře potvrzujete seznámití se s těmito zásadami platnými od 15. září 2026.</p>
+    </main>
+</div>
+
+<footer>
+    <p>© 2026 Otvírání Ořechova | Nezávislý občasník pro veřejnost obce Ořechov.</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll('aside.sidebar a');
+    
+     
+    navLinks.forEach((link) => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+
+            let targetId = this.getAttribute('href');
+            let targetHeading = document.querySelector(targetId);
+            
+            if (targetHeading) {
+                 
+                let targetTop = targetHeading.getBoundingClientRect().top + window.pageYOffset - 20;
+                window.scrollTo({
+                    top: targetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

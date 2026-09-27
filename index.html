@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otvírání</title>
+
+<meta name="description" content="Nezávislé online noviny pro obec Ořechov. Výhledy vývoje, transparentní rozpočet, participace občanů a dlouhodobé hodnoty pro vnoučata i veřejnost.">
+<meta name="keywords" content="Ořechov, Otvírání Ořechova, rozpočet obce, zastupitelstvo, Jaromír Ticháček, rozvoj obce">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%236b2e8f' stroke-width='18' /%3E%3Cpath d='M 50 15 A 35 35 0 0 0 50 85' fill='none' stroke='%2317aa01' stroke-width='18' /%3E%3C/svg%3E">
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+:root {
+    --green-apple: #17aa01;
+    --blueberry-purple: #6b2e8f;
+    --sky-blue: #8fd3ff;
+    --link-blue: #5abcf0;
+    --white: #ffffff;
+    --light-gray: #f9f9f9;
+    --border-gray: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--light-gray);
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: var(--white);
+    padding: 20px 20px 0 20px;
+    position: relative;
+    border-top: 8px solid var(--green-apple);
+    border-bottom: 2px solid var(--blueberry-purple);
+    text-align: center;
+}
+
+header h1 {
+    color: var(--blueberry-purple);
+    font-size: 42px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    font-family: 'Times New Roman', Times, serif; 
+}
+
+.header-subtitle {
+    color: #555;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.date-bar {
+    border-top: 1px solid var(--border-gray);
+    border-bottom: 1px solid var(--border-gray);
+    padding: 15px 0;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1000px;
+    margin: 25px auto 10px auto;
+    gap: 30px;
+}
+
+.date-label {
+    color: #64748b; 
+}
+
+.date-value {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: #1e293b; 
+}
+
+.date-value svg {
+    width: 18px;
+    height: 18px;
+    fill: #64748b;
+    margin-top: -2px; 
+}
+
+@media (max-width: 768px) {
+    .date-bar {
+        justify-content: space-between; 
+        gap: 10px;
+        padding: 15px 10px;
+    }
+}
+
+.hamburger {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--blueberry-purple);
+    transition: all 0.2s ease;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--blueberry-purple);
+}
+
+.hamburger:hover {
+    background: var(--light-gray);
+}
+
+.hamburger.active-toggle {
+    background: var(--blueberry-purple);
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    padding: 80px 12px 20px 12px;
+    transition: 0.3s;
+    z-index: 1000;
+    border-left: 4px solid var(--green-apple);
+}
+
+.menu a {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background: var(--link-blue);
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.menu a:hover {
+    background: var(--blueberry-purple);
+}
+
+.menu.active {
+    right: 0;
+}
+
+/* --- Sekce s barvami (nyní pouze banner pro nadpis) --- */
+.hero-wrapper {
+    background: linear-gradient(135deg, var(--green-apple) 0%, #2b566e 50%, var(--blueberry-purple) 100%);
+    padding: 33px 20px; /* Zmenšeno odsazení pro vyvážení většího písma */
+    margin-bottom: 50px;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.15); 
+}
+
+.news-container {
+    max-width: 1000px;
+    margin: 0 auto; 
+}
+
+.section-title {
+    font-size: 46px; 
+    line-height: 1; /* Těsnější výška řádku, aby nezvětšovala banner */
+    color: #ffffff;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+    text-align: center; 
+    margin: 0; 
+    padding: 0;
+    border: none; 
+}
+
+.cards {
+    display: flex;
+    flex-direction: column; 
+    gap: 35px; 
+    margin-bottom: 50px;
+}
+
+.card {
+    background: white;
+    border-top: 6px solid var(--green-apple);
+    padding: 40px; 
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    color: var(--blueberry-purple);
+    font-size: 26px;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.date {
+    display: inline-block;
+    background: var(--sky-blue);
+    color: #111;
+    padding: 6px 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+.pdf, .actuality {
+    margin-top: 15px;
+    padding: 20px; 
+    background: var(--light-gray);
+    border-left: 4px solid var(--link-blue);
+    font-size: 16px;
+}
+
+.actuality {
+    border-left-color: var(--blueberry-purple);
+    margin-top: 15px;
+    flex-grow: 1;
+}
+
+.pdf a, .actuality a {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--link-blue);        
+    text-decoration: none;    
+    font-weight: bold;                 
+    transition: color 0.2s ease;
+}
+
+.pdf a:hover, .actuality a:hover {
+    color: var(--blueberry-purple);
+    text-decoration: underline;
+}
+
+.contact {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    background: white;
+    padding: 40px;
+    border-top: 5px solid var(--blueberry-purple);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.contact h3 {
+    margin-bottom: 25px;
+    color: var(--blueberry-purple);
+    font-size: 26px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.contact input[type="text"],
+.contact input[type="email"],
+.contact textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-gray);
+    background: var(--light-gray);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.contact input[type="text"]:focus,
+.contact input[type="email"]:focus,
+.contact textarea:focus {
+    border-color: var(--green-apple);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(23, 170, 1, 0.1);
+}
+
+.contact button {
+    background: var(--green-apple);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s ease;
+}
+
+.contact button:hover {
+    background: var(--blueberry-purple);
+}
+
+#form-message {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.gdpr-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.4;
+}
+
+.gdpr-checkbox-wrapper input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 3px;
+    cursor: pointer;
+    width: auto;
+}
+
+/* Tooltip bublina k GDPR */
+.gdpr-tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.gdpr-tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    max-width: 290px;
+    background-color: #1e293b; 
+    color: #f8fafc; 
+    text-align: left;
+    border-radius: 8px;
+    padding: 16px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 135%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    font-size: 13px;
+    line-height: 1.6;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.gdpr-tooltip-wrapper:hover .gdpr-tooltip-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.gdpr-tooltip-content strong {
+    color: var(--sky-blue);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.gdpr-tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #1e293b transparent transparent transparent;
+}
+
+@media (max-width: 768px) {
+    .gdpr-tooltip-content {
+        left: auto;
+        right: -10px;
+        transform: translateY(10px);
+    }
+    .gdpr-tooltip-wrapper:hover .gdpr-tooltip-content {
+        transform: translateY(0);
+    }
+    .gdpr-tooltip-content::after {
+        left: auto;
+        right: 30px;
+    }
+}
+
+.cookie-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 980px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-top: 5px solid var(--green-apple);
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04);
+    z-index: 9999;
+    display: none; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    box-sizing: border-box;
+}
+
+.cookie-left-side {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.cookie-shield-badge {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.cookie-shield-badge svg {
+    width: 24px;
+    height: 24px;
+    fill: #4a6fa5; 
+}
+
+.cookie-text-block h4 {
+    color: #1e293b;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0 0 4px 0;
+    font-weight: 700;
+}
+
+.cookie-text-block p {
+    font-size: 13.5px;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cookie-text-block a {
+    color: var(--blueberry-purple);
+    font-weight: 600;
+    text-decoration: underline;
+}
+.cookie-text-block a:hover {
+    color: var(--green-apple);
+}
+
+.cookie-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.cookie-actions button {
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-c-settings {
+    background: #f8fafc;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+.btn-c-settings:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.btn-c-reject {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+.btn-c-reject:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.btn-c-accept {
+    background: var(--green-apple);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 3px 10px rgba(23, 170, 1, 0.25);
+}
+.btn-c-accept:hover {
+    background: #128a01;
+}
+
+.cookie-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.cookie-modal-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 640px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    border-top: 6px solid var(--blueberry-purple);
+}
+
+.cm-head {
+    padding: 20px 24px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cm-head h3 {
+    color: var(--blueberry-purple);
+    font-size: 19px;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    font-weight: 700;
+}
+
+.cm-close-btn {
+    background: #e2e8f0;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 15px;
+    color: #475569;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cm-close-btn:hover { background: #cbd5e1; color: #1e293b; }
+
+.cm-body-content {
+    padding: 24px;
+    overflow-y: auto;
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.cm-pref-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+.cm-pref-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.cm-pref-top h4 {
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cm-switch-wrap {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+.cm-switch-wrap input { opacity: 0; width: 0; height: 0; }
+.cm-switch-slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e0; transition: .3s; border-radius: 24px;
+}
+.cm-switch-slider:before {
+    position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+    background-color: white; transition: .3s; border-radius: 50%;
+}
+input:checked + .cm-switch-slider { background-color: var(--green-apple); }
+input:checked + .cm-switch-slider:before { transform: translateX(20px); }
+input:disabled + .cm-switch-slider { background-color: #94a3b8; cursor: not-allowed; }
+
+.cm-foot {
+    padding: 16px 24px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cm-foot button {
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+footer {
+    background: var(--sky-blue);
+    color: #333;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 4px solid var(--green-apple);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+footer a {
+    color: var(--blueberry-purple);
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+}
+footer a:hover { color: var(--green-apple); text-decoration: underline; }
+
+#scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background: var(--blueberry-purple);
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    display: none;
+    z-index: 999;
+}
+#scrollTopBtn:hover { background: var(--green-apple); }
+#scrollTopBtn svg {
+    width: 24px; height: 24px; stroke: white; stroke-width: 3; fill: none; margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+    header h1 { font-size: 30px; }
+    .hero-wrapper { padding: 27px 15px; } /* Zmenšeno odsazení pro vyvážení většího písma */
+    .section-title { font-size: 32px; } 
+    .card { padding: 25px; }
+    .cookie-banner {
+        bottom: 10px; width: calc(100% - 20px); flex-direction: column; padding: 18px; gap: 15px; text-align: center;
+    }
+    .cookie-left-side { flex-direction: column; align-items: center; text-align: center; }
+    .cookie-actions { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+    .cookie-actions button { width: 100%; margin: 0 !important; }
+    .cm-foot { flex-direction: column; }
+    .cm-foot button { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="hamburger">☰</div>
+    <h1>Otvírání</h1>
+    <p class="header-subtitle">Online noviny o Otvírání obcí, nejen Ořechova</p>
+    <div class="date-bar">
+    <span class="date-label">Poslední aktualizace:</span>
+    <div class="date-value">
+        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm12 5h-3v3h3v-3zm-5 0H9v3h3v-3z"/></svg>
+        <script>
+            const mesice = ["ledna", "února", "března", "dubna", "května", "června", "července", "srpna", "září", "října", "listopadu", "prosince"];
+            const d = new Date();
+            document.write(d.getDate() + ". " + mesice[d.getMonth()] + " " + d.getFullYear());
+        </script>
+    </div>
+</div>
+    <div class="menu">
+        <a href="#">Domů</a>
+        <a href="#vydani1">I. téma</a>
+        <a href="#vydani2">II. téma</a>
+        <a href="#vydani3">III. téma</a>
+        <a href="#vydani4">IV. téma</a>
+        <a href="#kontakt">Napište mi e-mail</a>
+    </div>
+</header>
+
+<!-- Barevný pruh pouze pro nadpis -->
+<div class="hero-wrapper">
+    <div class="news-container">
+        <h2 class="section-title">Témata</h2>
+    </div>
+</div>
+
+<!-- Samotná témata pod pruhem na světlém pozadí -->
+<main class="news-container">
+    <div class="cards">
+        <article class="card" id="vydani1">
+            <div>
+                <span class="date">I. téma</span>
+                <h3>Výhledy Vývoje Otvírání Ořechova Vzájmu Vnoučat i Veřejnosti?</h3>
+            </div>
+            <div class="pdf">
+                <strong>Dokument:</strong><br>
+                <a href="dokumenty/1.Výhledy.Vývoje.Otvírání.Ořechova (2).pdf" target="_self">📄 Výhledy Vývoje Otvírání Ořechova Vzájmu Vnoučat i Veřejnosti
+Vzájmu Všech Vnoučat i Veřejnosti?</a>
+            </div>
+            <div class="actuality">
+                <a href="dokumenty\1.1.Myšlenkové mapy Výhledů Vývoje Otvírání Ořechova.pdf" target="_self">📎 Myšlenkové mapy Výhledů Vývoje Otvírání Ořechova
+Vzájmu Vnoučat i Veřejnosti v rozsahu každoročních cca 100 milionů?</a>
+            </div>
+        </article>
+
+        <article class="card" id="vydani2">
+            <div>
+                <span class="date">II. téma</span>
+                <h3>Rada obce a 15 zastupitelů – demokracie v zájmu občanů, ale proti zájmu zastupitelů Ořechova?</h3>
+            </div>
+            <div class="pdf">
+                <strong>Dokument:</strong><br> <a href="dokumenty\2.Rada obce a 15 zastupitelů Ořechova.pdf" target="_self">📄 Rada obce a 15 zastupitelů – demokracie v zájmu občanů, ale proti zájmu zastupitelů Ořechova?</a>
+            </div>
+            <div class="actuality"> <a href="dokumenty\2.1.P1.Návrh zastupitelstvu Ořechova.pdf" target="_self">📎 P1. Návrh na rozšíření počtu zastupitelů obce Ořechov u Brna pro příští volební období na 15 a ustavení Rady obce s 5 členy</a>
+            </div>
+        </article>
+
+        <article class="card" id="vydani3">
+            <div>
+                <span class="date">III. téma</span>
+                <h3>Občanům Otevřený rozpočet Ořechova na každoročních 100 milionů?</h3>
+            </div>
+            <div class="pdf">
+                <strong>Dokument:</strong><br>
+                <a href="dokumenty/3.Občanům Otevřený Rozpočet Ořechova.pdf" target="_self">📄 Občanům Otevřený rozpočet Ořechova na každoročních 100 milionů?</a>
+            </div>
+            <div class="actuality"> <a href="dokumenty\3.1.Přehled Programů vývoje Ořechova.pdf" target="_self">📎 Přehled Programů i Projektů vývoje Ořechova na každoročních 100 milionů?</a>
+            </div>
+        </article>
+    
+        <article class="card" id="vydani4">
+            <div>
+                <span class="date">IV. téma</span>
+                <h3>Poznatky, Postřehy a Příběhy pro Besedování Veřejnosti?</h3>
+            </div>
+            <div class="pdf">
+                <strong>Dokument:</strong><br>
+                <a href="dokumenty/4.Besedování Veřejnosti.pdf" target="_self">📄 Poznatky, Postřehy a Příběhy pro Besedování Veřejnosti – úvod?</a>
+            </div>
+            <div class="actuality"> <a href=".pdf" target="_self">📎 </a>
+            </div>
+        </article>
+    </div>
+</main>
+
+<div class="contact" id="kontakt">
+    <h3>Napište mi</h3>
+    <p style="margin-bottom: 20px; color: #555;">Máte názor, dotaz nebo připomínku k tématům? Využijte formulář níže.</p>
+    <form id="contact-form">
+        <input type="text" name="website" style="display:none">
+        <input type="text" name="user_name" placeholder="Vaše jméno" required>
+        <input type="email" name="user_email" placeholder="Váš e-mail" required>
+        <textarea name="message" rows="5" placeholder="Text vaší zprávy..." required></textarea>
+        
+        <div class="gdpr-checkbox-wrapper">
+            <input type="checkbox" id="gdpr-consent" required>
+            <label for="gdpr-consent">
+                Souhlasím se zpracováním osobních údajů (jméno, e-mail) za účelem zpětného kontaktování. 
+                
+                <span class="gdpr-tooltip-wrapper">
+                    <a href="gdpr.html" style="color: var(--link-blue); text-decoration: underline; font-weight: 600;">Číst zásady ochrany osobních údajů.</a>
+                    <span class="gdpr-tooltip-content">
+                        <strong>Stručné shrnutí GDPR:</strong>
+                        • Sbíráme pouze vaše jméno a e-mail.<br>
+                        • Slouží výhradně k odpovědi na zprávu.<br>
+                        • Údaje mažeme po 1 roce.<br>
+                        • Vaše data nikomu dalšímu nepředáváme.
+                    </span>
+                </span>
+            </label>
+        </div>
+        
+        <button type="submit">Odeslat zprávu</button>
+        <p id="form-message"></p>
+    </form>
+</div>
+
+<footer>
+    <p>© 2026 Otvírání | Vydáváno v zájmu vnoučat i veřejnosti.</p>
+    <a href="gdpr.html">Kompletní Zásady ochrany osobních údajů (GDPR)</a>
+</footer>
+
+<button onclick="topFunction()" id="scrollTopBtn" title="Zpět nahoru">
+    <svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"></polyline></svg>
+</button>
+
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-left-side">
+        <div class="cookie-shield-badge">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            </svg>
+        </div>
+        <div class="cookie-text-block">
+            <h4>Ochrana vašeho soukromí</h4>
+            <p>Tento web využívá soubory cookies k zajištění správného fungování a analýze. Kliknutím na „Přijmout vše“ udělujete souhlas. <a href="gdpr.html">Podrobné informace v Zásadách GDPR</a>.</p>
+        </div>
+    </div>
+    <div class="cookie-actions">
+        <button class="btn-c-settings" onclick="openCookieModal()">Nastavení</button>
+        <button class="btn-c-reject" onclick="acceptCookies('necessary')">Pouze nezbytné</button>
+        <button class="btn-c-accept" onclick="acceptCookies('all')">Přijmout vše</button>
+    </div>
+</div>
+
+<div class="cookie-modal-overlay" id="cookieModal">
+    <div class="cookie-modal-box">
+        <div class="cm-head">
+            <h3>Správa souborů cookies</h3>
+            <button class="cm-close-btn" onclick="closeCookieModal()">✕</button>
+        </div>
+        <div class="cm-body-content">
+            <p>Zde si můžete zvolit, které kategorie cookies povolíte. Své preference můžete kdykoliv upravit.</p>
+            <div class="cm-pref-card">
+                <div class="cm-pref-top">
+                    <h4>Nezbytně nutné cookies</h4>
+                    <label class="cm-switch-wrap">
+                        <input type="checkbox" checked disabled>
+                        <span class="cm-switch-slider"></span>
+                    </label>
+                </div>
+                <p style="margin: 0; font-size: 13px; color: #64748b;">Nutné pro základní technický chod stránek a zapamatování vašeho souhlasu. Nelze vypnout.</p>
+            </div>
+            <div class="cm-pref-card">
+                <div class="cm-pref-top">
+                    <h4>Analytické cookies</h4>
+                    <label class="cm-switch-wrap">
+                        <input type="checkbox" id="analyticsCookie" checked>
+                        <span class="cm-switch-slider"></span>
+                    </label>
+                </div>
+                <p style="margin: 0; font-size: 13px; color: #64748b;">Pomáhají nám anonymně sledovat návštěvnost a zlepšovat kvalitu online novin.</p>
+            </div>
+        </div>
+        <div class="cm-foot">
+            <button class="btn-c-reject" onclick="saveCustomCookies()">Uložit předvolby</button>
+            <button class="btn-c-accept" onclick="acceptCookies('all')">Přijmout vše</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    if (!sessionStorage.getItem("cookiesConsent")) {
+        document.getElementById("cookieBanner").style.display = "flex";
+    }
+});
+
+function acceptCookies(type) {
+    sessionStorage.setItem("cookiesConsent", type);
+    document.getElementById("cookieBanner").style.display = "none";
+    closeCookieModal();
+}
+
+function openCookieModal() {
+    document.getElementById("cookieModal").style.display = "flex";
+}
+
+function closeCookieModal() {
+    document.getElementById("cookieModal").style.display = "none";
+}
+
+function saveCustomCookies() {
+    let analytics = document.getElementById("analyticsCookie").checked;
+    let consentType = analytics ? "custom-with-analytics" : "necessary-only";
+    sessionStorage.setItem("cookiesConsent", consentType);
+    document.getElementById("cookieBanner").style.display = "none";
+    closeCookieModal();
+}
+
+window.addEventListener('click', function(event) {
+    let modal = document.getElementById("cookieModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+let button = document.getElementById("scrollTopBtn");
+window.onscroll = function(){
+    if(document.body.scrollTop > 300 || document.documentElement.scrollTop > 300){
+        button.style.display = "block";
+    } else {
+        button.style.display = "none";
+    }
+};
+function topFunction(){
+    window.scrollTo({top:0, behavior:"smooth"});
+}
+
+const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.menu');
+
+function toggleMenu() {
+    const isOpen = menu.classList.toggle('active');
+    hamburger.classList.toggle('active-toggle', isOpen);
+    hamburger.innerText = isOpen ? '✕' : '☰';
+}
+function closeMenu() {
+    menu.classList.remove('active');
+    hamburger.classList.remove('active-toggle');
+    hamburger.innerText = '☰';
+}
+hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu();
+});
+document.addEventListener('click', function(e) {
+    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMenu();
+    }
+});
+document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => { closeMenu(); });
+});
+</script>
+
+</body>
+</html>
